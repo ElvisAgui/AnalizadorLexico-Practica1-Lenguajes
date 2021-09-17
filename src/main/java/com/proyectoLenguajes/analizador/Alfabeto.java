@@ -8,9 +8,10 @@ import java.util.ArrayList;
  */
 public class Alfabeto {
 
-    ArrayList<Character> agrupacion;
-    ArrayList<Character> operador;
-    ArrayList<Character> puntuacion;
+    private ArrayList<Character> agrupacion;
+    private ArrayList<Character> operador;
+    private ArrayList<Character> puntuacion;
+    private String Salto = "\n";
 
     public Alfabeto() {
         defAlfabeto();
@@ -69,6 +70,10 @@ public class Alfabeto {
             valor = 5;
         } else if (puntuacion.contains(caracter)) {
             valor = 3;
+        }else if (Character.isSpaceChar(caracter)) {
+            valor = -2;
+        }else if(Character.compare(caracter, this.Salto.charAt(0)) ==  0){
+            valor = -3;
         }
         return valor;
     }

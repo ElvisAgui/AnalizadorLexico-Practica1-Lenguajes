@@ -1,5 +1,6 @@
 package com.proyectoLenguajes.analizador;
 
+import com.proyectoLenguajes.reportes.Errores;
 import javax.swing.JTextArea;
 
 /**
@@ -12,9 +13,10 @@ public class Analizador {
     private final Alfabeto alfabeto = new Alfabeto();
     private final JTextArea cadena;
     private String texto;
-    private String Salto = "\n";
+    private final String Salto = "\n";
     private int posicion = 0;
     private int estadoActual;
+    private Errores reporteErrores = new Errores();
 
     public Analizador(JTextArea cadena) {
         this.cadena = cadena;
@@ -26,23 +28,21 @@ public class Analizador {
         char temporal;
         while (posicion < texto.length()) {
             temporal = texto.charAt(posicion);
+            int estadoTemporal = getSiguienteEstado(estadoActual, alfabeto.alfabetoValueOf(temporal));
+            System.out.println(estadoTemporal);
+            reporteErrores.recopilador(temporal, estadoTemporal);
+            this.estadoActual = estadoTemporal;
             if (!siguinteToken(temporal) || reiniciar(estadoActual)) {
                 estadoActual = 0;
-            } else {
-                int estadoTemporal = getSiguienteEstado(estadoActual, alfabeto.alfabetoValueOf(temporal));
-                //proceso de reporte de error o de tokens 
-                this.estadoActual = estadoTemporal;
             }
             posicion++;
         }
         this.cadena.setText(this.cadena.getText());
     }
-    
-    
 
     private boolean reiniciar(int estadoActual) {
         boolean reiniciar = false;
-        if (estadoActual == -1) {
+        if (estadoActual == -1 || estadoActual == -2) {
             reiniciar = true;
         }
         return reiniciar;
@@ -52,6 +52,10 @@ public class Analizador {
         int resultado = -1;
         if (caracter >= 0 && caracter <= 5) {
             resultado = estados.getMatriz()[estadoActual][caracter];
+        } else if (caracter == -2) {
+            resultado = -2;
+        } else if (caracter == -3) {
+            resultado = -3;
         }
         return resultado;
     }
@@ -77,18 +81,20 @@ public class Analizador {
                 salto = true;
                 texto += caracter;
             }
-            if (salto && !Character.isDigit(caracter)) {
-                if (!(Character.compare(caracter, '.') == 0)) {
-                    texto += caracter;
-                }
-                salto = false;
-            } else {
-                if (!salto) {
-                    texto += caracter;
-                }
+            if (!salto) {
+                texto += caracter;
             }
+            if (salto && Character.isSpaceChar(caracter)) {
+                salto = false;
+            }
+
         }
         System.out.println(texto);
     }
+
+    public Errores getReporteErrores() {
+        return reporteErrores;
+    } 
+    
 
 }
