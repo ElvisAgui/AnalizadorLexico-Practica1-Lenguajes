@@ -1,18 +1,17 @@
 
 package com.proyectoLenguajes.interfazG;
 
-import com.proyectoLenguajes.reportes.Errores;
+import com.proyectoLenguajes.reportes.Reporte;
 
 /**
  *
  * @author elvis_agui
  */
-public class ReporteError extends javax.swing.JFrame {
+public class Reportes extends javax.swing.JFrame {
 
-    private Errores reportErrores;
-    public ReporteError() {
+    private Reporte reporte;
+    public Reportes() {
         initComponents();
-       
     }
 
     /**
@@ -28,15 +27,21 @@ public class ReporteError extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ReportejTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Reporte de Errores Encontrados");
+        setTitle("Reportes");
+        setBackground(new java.awt.Color(0, 204, 204));
+        setExtendedState(6);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        jLabel1.setText("Reporte De Errores Encontrados");
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("REPORTES");
 
         ReportejTable.setBackground(new java.awt.Color(204, 204, 204));
-        ReportejTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ReportejTable.setBorder(new javax.swing.border.MatteBorder(null));
         ReportejTable.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ReportejTable.setForeground(new java.awt.Color(0, 0, 0));
         ReportejTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -53,25 +58,32 @@ public class ReporteError extends javax.swing.JFrame {
         ReportejTable.setEnabled(false);
         jScrollPane1.setViewportView(ReportejTable);
 
+        jButton1.setText("RECUENTO LEXEMAS");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(jLabel1)
-                .addContainerGap(62, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
+                .addGap(68, 68, 68)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1))
+                .addGap(53, 53, 53)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -79,32 +91,28 @@ public class ReporteError extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     private void desplegar(){
-        this.reportErrores.enlistarErrores(ReportejTable);
+ private void desplegar(){
+     this.reporte.enlistarReporte(ReportejTable);
     }
 
-    public void setReportErrores(Errores reportErrores) {
-        this.reportErrores = reportErrores;
+    public void setReportErrores(Reporte reportErrores) {
+        this.reporte = reportErrores;
         desplegar();
     }
-   
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportejTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

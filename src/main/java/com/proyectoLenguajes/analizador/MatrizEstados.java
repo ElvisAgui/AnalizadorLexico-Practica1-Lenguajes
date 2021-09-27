@@ -6,7 +6,7 @@ package com.proyectoLenguajes.analizador;
  * @author elvis_agui
  */
 public class MatrizEstados {
-    private int matriz[][] = new int[8][6];
+    private int matriz[][] = new int[9][6];
     
     public MatrizEstados(){
         definicionEstados();

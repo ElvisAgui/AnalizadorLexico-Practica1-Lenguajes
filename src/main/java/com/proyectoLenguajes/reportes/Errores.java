@@ -14,10 +14,11 @@ public class Errores {
     private ArrayList<Character> caracter = new ArrayList<>();
     private ArrayList<Integer> fila = new ArrayList<>();
     private ArrayList<Integer> columna = new ArrayList<>();
-    private int filaActual = 0;
+    private int filaActual = 1;
     private int columnaActual = 0;
     private JTable tabla;
     private String cadenaActual = "";
+    private boolean existeErrores = false;  
 
     public void enlistarErrores(JTable tabla) {
         this.tabla = tabla;
@@ -38,8 +39,10 @@ public class Errores {
         if (estado == -3) {
             this.filaActual++;
             this.columnaActual = 0;
+            this.cadenaActual = "";
         } else {
             if (estado == -1) {
+                this.existeErrores = true;
                 this.columnaActual++;
                 this.cadenaActual += Caracter;
                 this.caracter.add(Caracter);
@@ -107,5 +110,15 @@ public class Errores {
     public void setColumnaActual(int columnaActual) {
         this.columnaActual = columnaActual;
     }
+
+    public boolean isExisteErrores() {
+        return existeErrores;
+    }
+
+    public void setExisteErrores(boolean existeErrores) {
+        this.existeErrores = existeErrores;
+    }
+    
+    
 
 }

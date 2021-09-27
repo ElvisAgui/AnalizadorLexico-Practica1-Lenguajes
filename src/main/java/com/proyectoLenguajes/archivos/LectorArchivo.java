@@ -14,15 +14,13 @@ import javax.swing.JTextArea;
  */
 public class LectorArchivo {
     
-    private int cont = 1;
-    
      public void leerFichero(File archivo,JTextArea text) throws FileNotFoundException, IOException {
         FileReader fr = new FileReader(archivo);
         BufferedReader br = new BufferedReader(fr);
         String linea;
         while ((linea = br.readLine()) != null) {
-            text.append("\n"+cont+". "+linea);
-            cont++;
+            text.append(linea+"\n");
+           
         }
         fr.close();
     }

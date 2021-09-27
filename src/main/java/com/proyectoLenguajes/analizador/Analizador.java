@@ -1,6 +1,7 @@
 package com.proyectoLenguajes.analizador;
 
 import com.proyectoLenguajes.reportes.Errores;
+import com.proyectoLenguajes.reportes.Reporte;
 import javax.swing.JTextArea;
 
 /**
@@ -17,13 +18,14 @@ public class Analizador {
     private int posicion = 0;
     private int estadoActual;
     private Errores reporteErrores = new Errores();
+    private Reporte reporte = new Reporte();
 
     public Analizador(JTextArea cadena) {
         this.cadena = cadena;
     }
 
     public void anlaizar() {
-        limpirText(this.cadena.getText());
+       texto = cadena.getText();
         this.estadoActual = 0;
         char temporal;
         while (posicion < texto.length()) {
@@ -31,6 +33,7 @@ public class Analizador {
             int estadoTemporal = getSiguienteEstado(estadoActual, alfabeto.alfabetoValueOf(temporal));
             System.out.println(estadoTemporal);
             reporteErrores.recopilador(temporal, estadoTemporal);
+            this.reporte.recopilarReporte(temporal, estadoTemporal, texto.length());
             this.estadoActual = estadoTemporal;
             if (!siguinteToken(temporal) || reiniciar(estadoActual)) {
                 estadoActual = 0;
@@ -42,7 +45,7 @@ public class Analizador {
 
     private boolean reiniciar(int estadoActual) {
         boolean reiniciar = false;
-        if (estadoActual == -1 || estadoActual == -2) {
+        if (estadoActual == -1 || estadoActual == -2  || estadoActual == -3) {
             reiniciar = true;
         }
         return reiniciar;
@@ -68,33 +71,12 @@ public class Analizador {
         return seguir;
     }
 
-    /**
-     * limpia el texto del JtextArea le quiera el numeral de linea y el punto
-     *
-     * @param cadena
-     */
-    private void limpirText(String cadena) {
-        texto = "";
-        boolean salto = false;
-        for (char caracter : cadena.toCharArray()) {
-            if (Character.compare(caracter, this.Salto.charAt(0)) == 0) {
-                salto = true;
-                texto += caracter;
-            }
-            if (!salto) {
-                texto += caracter;
-            }
-            if (salto && Character.isSpaceChar(caracter)) {
-                salto = false;
-            }
-
-        }
-        System.out.println(texto);
-    }
-
     public Errores getReporteErrores() {
         return reporteErrores;
     } 
-    
+
+    public Reporte getReporte() {
+        return reporte;
+    }
 
 }
