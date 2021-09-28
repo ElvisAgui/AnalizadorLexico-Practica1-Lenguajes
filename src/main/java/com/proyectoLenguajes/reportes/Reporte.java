@@ -15,6 +15,7 @@ public class Reporte {
     private ArrayList<String> listaLexema = new ArrayList<>();
     private ArrayList<Integer> listaColumna = new ArrayList<>();
     private ArrayList<Integer> listaFila = new ArrayList<>();
+    private ArrayList<Token> listaContadorToken = new ArrayList<>();
     private String lexema = "";
     private int fila = 1;
     private int columna = 0;
@@ -61,17 +62,27 @@ public class Reporte {
             default:
                 this.columna++;
                 this.lexema += "" + caracter;
-                if (this.contador == lengt-1) {
+                if (this.contador == lengt - 1) {
                     this.listaLexema.add(lexema);
                     this.Tokens.add(nombreToken(estado));
                     this.listaColumna.add(columna);
                     this.listaFila.add(fila);
                 }
-               
+
                 break;
         }
         this.contador++;
         this.estadoAnterio = estado;
+    }
+
+    public void recuento(JTable tabla) {
+       DefaultTableModel modelo = new DefaultTableModel();
+       tabla.setModel(modelo);
+        modelo.addColumn("NOMBRE TOKEN");
+        modelo.addColumn("CANTIDAD");
+        for (Token token : listaContadorToken) {
+            modelo.addRow(new Object[]{token.getToken(), token.getCantidad()});
+        }
     }
 
     private String nombreToken(int estado) {
@@ -79,27 +90,35 @@ public class Reporte {
         switch (estado) {
             case 1:
                 token = listaToken.get(0);
+                this.listaContadorToken.get(0).setCantidad(1);
                 break;
             case 2:
                 token = listaToken.get(0);
+                this.listaContadorToken.get(0).setCantidad(1);
                 break;
             case 3:
                 token = listaToken.get(1);
+                this.listaContadorToken.get(1).setCantidad(1);
                 break;
             case 4:
                 token = listaToken.get(4);
+                this.listaContadorToken.get(4).setCantidad(1);
                 break;
             case 5:
                 token = listaToken.get(2);
+                this.listaContadorToken.get(2).setCantidad(1);
                 break;
             case 6:
                 token = listaToken.get(4);
+                this.listaContadorToken.get(4).setCantidad(1);
                 break;
             case 7:
                 token = listaToken.get(3);
+                this.listaContadorToken.get(3).setCantidad(1);
                 break;
             case 8:
                 token = listaToken.get(5);
+                this.listaContadorToken.get(5).setCantidad(1);
                 break;
             default:
                 token = "error";
@@ -119,6 +138,13 @@ public class Reporte {
         this.listaToken.add("Signo Agrupacion");
         this.listaToken.add("Signo Puntuacion");
         this.listaToken.add("Operador");
+        this.listaContadorToken.add(Token.IDENTIFICADOR);
+        this.listaContadorToken.add(Token.ENTERO);
+        this.listaContadorToken.add(Token.DECIMAL);
+        this.listaContadorToken.add(Token.AGRUPACION);
+        this.listaContadorToken.add(Token.PUNTUACION);
+        this.listaContadorToken.add(Token.OPERADOR);
+
     }
 
 }

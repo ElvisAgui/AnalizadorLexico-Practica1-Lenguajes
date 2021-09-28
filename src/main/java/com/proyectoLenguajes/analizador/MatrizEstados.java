@@ -16,7 +16,7 @@ public class MatrizEstados {
     private void definicionEstados(){
         this.matriz[0][0] = 1;
         this.matriz[0][1] = 3;
-        this.matriz[0][2] = -1;
+        this.matriz[0][2] = 6;
         this.matriz[0][3] = 6;
         this.matriz[0][4] = 7;
         this.matriz[0][5] = 8;

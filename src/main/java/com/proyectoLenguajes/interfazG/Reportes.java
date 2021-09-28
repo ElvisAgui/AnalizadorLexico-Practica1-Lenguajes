@@ -1,4 +1,3 @@
-
 package com.proyectoLenguajes.interfazG;
 
 import com.proyectoLenguajes.reportes.Reporte;
@@ -10,6 +9,8 @@ import com.proyectoLenguajes.reportes.Reporte;
 public class Reportes extends javax.swing.JFrame {
 
     private Reporte reporte;
+    private ReporteConteo repoConteo;
+
     public Reportes() {
         initComponents();
     }
@@ -59,6 +60,11 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(ReportejTable);
 
         jButton1.setText("RECUENTO LEXEMAS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,15 +107,21 @@ public class Reportes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
- private void desplegar(){
-     this.reporte.enlistarReporte(ReportejTable);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.repoConteo = new ReporteConteo();
+        this.repoConteo.setReportErrores(reporte);
+        this.repoConteo.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void desplegar() {
+        this.reporte.enlistarReporte(ReportejTable);
     }
 
     public void setReportErrores(Reporte reportErrores) {
         this.reporte = reportErrores;
         desplegar();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportejTable;
     private javax.swing.JButton jButton1;
