@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.proyectoLenguajes.interfazG;
 
 import com.proyectoLenguajes.analizador.Analizador;
+import com.proyectoLenguajes.archivos.EscritorArchivo;
 import com.proyectoLenguajes.archivos.LectorArchivo;
+import com.proyectoLenguajes.principal.Busqueda;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -16,12 +14,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 /**
  *
  * @author elvis_agui
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    
+    private Busqueda busqueda;
     private Analizador analizador;
     private ReporteError ventanaRpo = new ReporteError();
     private LectorArchivo lector = new LectorArchivo();
@@ -49,8 +49,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         AnalizarjButton1 = new javax.swing.JButton();
         reporteJButton = new javax.swing.JButton();
         AnalizarjButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        PatronjTextField = new javax.swing.JTextField();
         AnalizarjButton4 = new javax.swing.JButton();
+        GuardarjButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -95,7 +96,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("Busquda patrones");
+        PatronjTextField.setText("Busquda patrones");
 
         AnalizarjButton4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         AnalizarjButton4.setForeground(new java.awt.Color(0, 0, 0));
@@ -106,19 +107,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        GuardarjButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        GuardarjButton.setForeground(new java.awt.Color(0, 0, 0));
+        GuardarjButton.setText("Guardar");
+        GuardarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AnalizarjButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(167, 167, 167)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(PatronjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,6 +136,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(AnalizarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(SubirArchivojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(159, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(AnalizarjButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(119, 119, 119))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(GuardarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +152,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(295, 295, 295)
                 .addComponent(SubirArchivojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PatronjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(AnalizarjButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,7 +161,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(reporteJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AnalizarjButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(GuardarjButton)
+                .addContainerGap())
         );
 
         jTextArea1.setColumns(20);
@@ -172,7 +189,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(221, 221, 221)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(41, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,13 +255,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_reporteJButtonActionPerformed
 
+   
     private void AnalizarjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalizarjButton3ActionPerformed
         try {
             if (!this.analizador.getReporteErrores().isExisteErrores()) {
                 this.movimiento.setAnalizador(analizador);
                 this.movimiento.setVisible(true);
-            }else{
-               JOptionPane.showMessageDialog(this, "Solucionar Errores Primero"); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Solucionar Errores Primero");
             }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Debe Analizar Primero");
@@ -252,8 +270,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_AnalizarjButton3ActionPerformed
 
     private void AnalizarjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalizarjButton4ActionPerformed
-        // TODO add your handling code here:
+       this.busqueda = new Busqueda();
+       busqueda.buscarpalabra(jTextArea1, PatronjTextField.getText());
+        
+        
     }//GEN-LAST:event_AnalizarjButton4ActionPerformed
+
+    private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
+        EscritorArchivo escritor = new EscritorArchivo();
+        JFileChooser fileChosser = new JFileChooser();
+        if (fileChosser.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+            escritor.escritorArchivo(fileChosser.getSelectedFile(), jTextArea1.getText());
+        }
+    }//GEN-LAST:event_GuardarjButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,12 +323,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton AnalizarjButton1;
     private javax.swing.JButton AnalizarjButton3;
     private javax.swing.JButton AnalizarjButton4;
+    private javax.swing.JButton GuardarjButton;
+    private javax.swing.JTextField PatronjTextField;
     private javax.swing.JButton SubirArchivojButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton reporteJButton;
     // End of variables declaration//GEN-END:variables
 }
