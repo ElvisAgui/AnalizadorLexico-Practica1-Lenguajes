@@ -16,7 +16,11 @@ import javax.swing.text.Highlighter;
  */
 public class Busqueda {
     
-    
+    /**
+     * encargado de buscar y pintar las palabras que encuentra en el texto
+     * @param areaTexto
+     * @param texto 
+     */
      public void buscarpalabra(JTextArea areaTexto, String texto) {
         if (texto.length() >= 1) {
             DefaultHighlighter.DefaultHighlightPainter highlightPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.GREEN);

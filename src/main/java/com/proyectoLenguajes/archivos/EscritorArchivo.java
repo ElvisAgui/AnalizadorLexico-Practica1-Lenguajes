@@ -13,6 +13,12 @@ import javax.swing.JOptionPane;
 public class EscritorArchivo {
     FileOutputStream salida;
     File archivo;
+    
+    /**
+     * escribe el texto que se guradara
+     * @param archivo
+     * @param texto 
+     */
     public void escritorArchivo(File archivo, String texto){
         try {
         salida = new FileOutputStream(archivo);

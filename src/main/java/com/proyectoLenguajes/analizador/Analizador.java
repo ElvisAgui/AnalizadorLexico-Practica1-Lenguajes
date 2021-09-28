@@ -28,6 +28,10 @@ public class Analizador {
         this.cadena = cadena;
     }
 
+    /**
+     * funcion encargada de analizar caracter por caracte haciedo llamads a la
+     * matriz, alfabeto y el movimiento entre las mismas
+     */
     public void anlaizar() {
         this.lexemas.clear();
         this.movimientos.clear();
@@ -50,6 +54,12 @@ public class Analizador {
         this.cadena.setText(this.cadena.getText());
     }
 
+    /**
+     * verifica si el estado es -2 para salto, -3 salto linea, -1 erro
+     *
+     * @param estadoActual el estado de la matriz
+     * @return true si hay que reiniciar el automata
+     */
     private boolean reiniciar(int estadoActual) {
         boolean reiniciar = false;
         if (estadoActual == -1 || estadoActual == -2 || estadoActual == -3) {
@@ -58,6 +68,13 @@ public class Analizador {
         return reiniciar;
     }
 
+    /**
+     * Funcion que realiza los movimientos en la matriz
+     *
+     * @param estadoActual
+     * @param caracter
+     * @return el siguiente estado en la matriz
+     */
     private int getSiguienteEstado(int estadoActual, int caracter) {
         int resultado = -1;
         if (caracter >= 0 && caracter <= 5) {
@@ -70,6 +87,12 @@ public class Analizador {
         return resultado;
     }
 
+    /**
+     * verifica si el caracter en espacio o salto de linea
+     *
+     * @param caracter
+     * @return
+     */
     private boolean siguinteToken(char caracter) {
         boolean seguir = true;
         if (Character.isSpaceChar(caracter) || Character.compare(caracter, this.Salto.charAt(0)) == 0) {
@@ -78,6 +101,13 @@ public class Analizador {
         return seguir;
     }
 
+    /**
+     * Controla los movimientos del estado anterio hacia el estado actual
+     *
+     * @param estadoAnterio
+     * @param estadoActual
+     * @param caracter
+     */
     private void movimientos(int estadoAnterio, int estadoActual, char caracter) {
         String movimiento = "Me movi del estado " + estadoAnterio + " al estado " + estadoActual + " con el caracter " + caracter;
         if (estadoActual >= 0 && estadoAnterio >= 0) {
@@ -94,14 +124,18 @@ public class Analizador {
         }
 
     }
-
+    
+    /**
+     * imprime en el jTexArea los movimientos
+     * @param area 
+     */
     public void listarMovimientos(JTextArea area) {
         int index = 0;
         for (String lexema : lexemas) {
             if (!lexema.equals("salto")) {
-                area.append(lexema+"\n");
+                area.append(lexema + "\n");
                 for (int i = 0; i < lexema.length(); i++) {
-                    area.append(movimientos.get(index)+"\n");
+                    area.append(movimientos.get(index) + "\n");
                     index++;
                 }
                 area.append("\n");

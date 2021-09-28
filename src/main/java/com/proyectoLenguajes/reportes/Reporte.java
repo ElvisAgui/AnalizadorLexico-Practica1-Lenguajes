@@ -27,6 +27,11 @@ public class Reporte {
         this.listarTokens();
     }
 
+    /**
+     * Imprime en el JTable los reportes recopilados
+     *
+     * @param tabla
+     */
     public void enlistarReporte(JTable tabla) {
         this.tabla = tabla;
         int index = 0;
@@ -42,6 +47,13 @@ public class Reporte {
         }
     }
 
+    /**
+     * Recopila reportes, de fila , columna, y sus respectivos tokens
+     *
+     * @param caracter
+     * @param estado
+     * @param lengt
+     */
     public void recopilarReporte(char caracter, int estado, int lengt) {
         switch (estado) {
             case -3:
@@ -81,6 +93,11 @@ public class Reporte {
         this.estadoAnterio = estado;
     }
 
+    /**
+     * Imprime el recuento de tokens, con nombre y cantidad de veces repetidas
+     *
+     * @param tabla
+     */
     public void recuento(JTable tabla) {
         DefaultTableModel modelo = new DefaultTableModel();
         tabla.setModel(modelo);
@@ -91,6 +108,11 @@ public class Reporte {
         }
     }
 
+    /**
+     * Imprime en el JTable la lista de lexemas encontradas y cuantas veces se repite
+     *
+     * @param tabla
+     */
     public void recuentoLexena(JTable tabla) {
         ArrayList<Integer> listaCantidad = new ArrayList<>();
         ArrayList<String> lexemasx = new ArrayList<>();
@@ -100,8 +122,8 @@ public class Reporte {
                     if (lexema.equals(aux)) {
                         if (lexemasx.contains(lexema)) {
                             int index = lexemasx.indexOf(lexema);
-                            int tem = listaCantidad.get(index)+1;
-                            listaCantidad.add(index,tem);
+                            int tem = listaCantidad.get(index) + 1;
+                            listaCantidad.add(index, tem);
                         } else {
                             lexemasx.add(lexema);
                             listaCantidad.add(1);
@@ -129,6 +151,11 @@ public class Reporte {
         }
     }
 
+    /**
+     *
+     * @param estado
+     * @return
+     */
     private String nombreToken(int estado) {
         String token = "";
         switch (estado) {

@@ -18,8 +18,12 @@ public class Errores {
     private int columnaActual = 0;
     private JTable tabla;
     private String cadenaActual = "";
-    private boolean existeErrores = false;  
+    private boolean existeErrores = false;
 
+    /**
+     *imprime los errores recopilados
+     * @param tabla
+     */
     public void enlistarErrores(JTable tabla) {
         this.tabla = tabla;
         int index = 0;
@@ -35,6 +39,11 @@ public class Errores {
         }
     }
 
+    /**
+     * recopila los errores que puede encontrar en el texto caracater por carater
+     * @param Caracter
+     * @param estado 
+     */
     public void recopilador(char Caracter, int estado) {
         if (estado == -3) {
             this.filaActual++;
@@ -63,62 +72,10 @@ public class Errores {
 
     }
 
-    public ArrayList<String> getCadena() {
-        return cadena;
-    }
-
-    public void setCadena(ArrayList<String> cadena) {
-        this.cadena = cadena;
-    }
-
-    public ArrayList<Character> getCaracter() {
-        return caracter;
-    }
-
-    public void setCaracter(ArrayList<Character> caracter) {
-        this.caracter = caracter;
-    }
-
-    public ArrayList<Integer> getFila() {
-        return fila;
-    }
-
-    public void setFila(ArrayList<Integer> fila) {
-        this.fila = fila;
-    }
-
-    public ArrayList<Integer> getColumna() {
-        return columna;
-    }
-
-    public void setColumna(ArrayList<Integer> columna) {
-        this.columna = columna;
-    }
-
-    public int getFilaActual() {
-        return filaActual;
-    }
-
-    public void setFilaActual(int filaActual) {
-        this.filaActual = filaActual;
-    }
-
-    public int getColumnaActual() {
-        return columnaActual;
-    }
-
-    public void setColumnaActual(int columnaActual) {
-        this.columnaActual = columnaActual;
-    }
-
     public boolean isExisteErrores() {
         return existeErrores;
     }
 
-    public void setExisteErrores(boolean existeErrores) {
-        this.existeErrores = existeErrores;
-    }
-    
-    
+   
 
 }
