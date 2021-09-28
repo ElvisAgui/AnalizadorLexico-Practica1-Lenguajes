@@ -128,6 +128,7 @@ public class ReporteConteo extends javax.swing.JFrame {
 
     private void desplegar() {
         this.reporte.recuento(TokensjTable);
+        this.reporte.recuentoLexena(LexemasjTable);
     }
 
     public void setReportErrores(Reporte reportErrores) {

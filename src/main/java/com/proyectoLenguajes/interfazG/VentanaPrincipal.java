@@ -21,12 +21,14 @@ import javax.swing.JPanel;
  * @author elvis_agui
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    Analizador analizador;
-    ReporteError ventanaRpo = new ReporteError();
-    LectorArchivo lector = new LectorArchivo();
-    NumeroLinea numeroLinea;
-    Reportes reporteVentan = new Reportes();
-    
+
+    private Analizador analizador;
+    private ReporteError ventanaRpo = new ReporteError();
+    private LectorArchivo lector = new LectorArchivo();
+    private NumeroLinea numeroLinea;
+    private Reportes reporteVentan = new Reportes();
+    private MovimientoVentan movimiento = new MovimientoVentan();
+
     public VentanaPrincipal() {
         initComponents();
         this.numeroLinea = new NumeroLinea(jTextArea1);
@@ -86,7 +88,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         AnalizarjButton3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         AnalizarjButton3.setForeground(new java.awt.Color(0, 0, 0));
-        AnalizarjButton3.setText("Tabla estados");
+        AnalizarjButton3.setText("Movimientos");
         AnalizarjButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnalizarjButton3ActionPerformed(evt);
@@ -115,16 +117,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(AnalizarjButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(reporteJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AnalizarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SubirArchivojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(167, 167, 167)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(171, Short.MAX_VALUE))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(AnalizarjButton3))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(reporteJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(AnalizarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(SubirArchivojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +172,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(221, 221, 221)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(10, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,14 +189,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubirArchivojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubirArchivojButtonActionPerformed
-       
+
         try {
             JFileChooser fileChosser = new JFileChooser();
             int seleccion = fileChosser.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 File fichero = fileChosser.getSelectedFile();
                 try {
-                    this.lector.leerFichero(fichero,jTextArea1);
+                    this.lector.leerFichero(fichero, jTextArea1);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Error al leer el archivo");
                 }
@@ -206,24 +211,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void AnalizarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalizarjButton1ActionPerformed
         this.analizador = new Analizador(jTextArea1);
         if (jTextArea1.getText() != null) {
-           this.analizador.anlaizar();
-           this.ventanaRpo.setReportErrores(this.analizador.getReporteErrores());
-           this.ventanaRpo.setVisible(true);
+            this.analizador.anlaizar();
+            this.ventanaRpo.setReportErrores(this.analizador.getReporteErrores());
+            if (this.analizador.getReporteErrores().isExisteErrores()) {
+                this.ventanaRpo.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Texto sin Errores");
+            }
+
         }
     }//GEN-LAST:event_AnalizarjButton1ActionPerformed
 
     private void reporteJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteJButtonActionPerformed
-        if(!this.analizador.getReporteErrores().isExisteErrores()){
-            this.reporteVentan.setReportErrores(this.analizador.getReporte());
-            this.reporteVentan.setVisible(true);
-        }else{
-            JOptionPane.showMessageDialog(this, "Solucionar Errores Primero");
+        try {
+            if (!this.analizador.getReporteErrores().isExisteErrores()) {
+                this.reporteVentan.setReportErrores(this.analizador.getReporte());
+                this.reporteVentan.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Solucionar Errores Primero");
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Debe Analizar Primero");
+
         }
-        
+
+
     }//GEN-LAST:event_reporteJButtonActionPerformed
 
     private void AnalizarjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalizarjButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (!this.analizador.getReporteErrores().isExisteErrores()) {
+                this.movimiento.setAnalizador(analizador);
+                this.movimiento.setVisible(true);
+            }else{
+               JOptionPane.showMessageDialog(this, "Solucionar Errores Primero"); 
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Debe Analizar Primero");
+        }
     }//GEN-LAST:event_AnalizarjButton3ActionPerformed
 
     private void AnalizarjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalizarjButton4ActionPerformed
@@ -233,8 +258,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
-    
     class FondoMenu extends JPanel {
 
         private Image imagen;
@@ -250,6 +273,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             super.paint(g);
         }
     }
+
     class FondoCont extends JPanel {
 
         private Image imagen;

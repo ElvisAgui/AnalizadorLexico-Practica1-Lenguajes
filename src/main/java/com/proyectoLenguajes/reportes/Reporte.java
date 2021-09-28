@@ -45,6 +45,12 @@ public class Reporte {
     public void recopilarReporte(char caracter, int estado, int lengt) {
         switch (estado) {
             case -3:
+                if (!"".equals(lexema)) {
+                    this.listaLexema.add(lexema);
+                    this.Tokens.add(nombreToken(estado));
+                    this.listaColumna.add(columna);
+                    this.listaFila.add(fila);
+                }
                 this.fila++;
                 this.columna = 0;
                 this.lexema = "";
@@ -76,12 +82,50 @@ public class Reporte {
     }
 
     public void recuento(JTable tabla) {
-       DefaultTableModel modelo = new DefaultTableModel();
-       tabla.setModel(modelo);
+        DefaultTableModel modelo = new DefaultTableModel();
+        tabla.setModel(modelo);
         modelo.addColumn("NOMBRE TOKEN");
         modelo.addColumn("CANTIDAD");
         for (Token token : listaContadorToken) {
             modelo.addRow(new Object[]{token.getToken(), token.getCantidad()});
+        }
+    }
+
+    public void recuentoLexena(JTable tabla) {
+        ArrayList<Integer> listaCantidad = new ArrayList<>();
+        ArrayList<String> lexemasx = new ArrayList<>();
+        for (String lexema : listaLexema) {
+            if (!lexemasx.contains(lexema)) {
+                for (String aux : listaLexema) {
+                    if (lexema.equals(aux)) {
+                        if (lexemasx.contains(lexema)) {
+                            int index = lexemasx.indexOf(lexema);
+                            int tem = listaCantidad.get(index)+1;
+                            listaCantidad.add(index,tem);
+                        } else {
+                            lexemasx.add(lexema);
+                            listaCantidad.add(1);
+                        }
+                    }
+                }
+            }
+
+        }
+        int index = 0;
+        DefaultTableModel modelo = new DefaultTableModel();
+        tabla.setModel(modelo);
+        modelo.addColumn("LEXEMA");
+        modelo.addColumn("CANTIDAD");
+        for (String lexema : lexemasx) {
+            modelo.addRow(new Object[]{lexema, listaCantidad.get(index)});
+            index++;
+        }
+
+    }
+
+    public void limpiar() {
+        for (Token token : listaContadorToken) {
+            token.setCantidad(0);
         }
     }
 
@@ -121,7 +165,7 @@ public class Reporte {
                 this.listaContadorToken.get(5).setCantidad(1);
                 break;
             default:
-                token = "error";
+                token = listaToken.get(0);
                 break;
         }
 

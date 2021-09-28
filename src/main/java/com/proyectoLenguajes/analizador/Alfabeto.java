@@ -16,7 +16,8 @@ public class Alfabeto {
     public Alfabeto() {
         defAlfabeto();
     }
-
+    //definicion de alfabetos que estan agrupados para uno solo
+    
     private void defAlfabeto() {
         defAgrupacion();
         defOperador();

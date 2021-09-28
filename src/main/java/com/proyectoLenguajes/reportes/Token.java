@@ -26,7 +26,11 @@ public enum Token {
     }
 
     public void setCantidad(int cantidad) {
-        this.cantidad += cantidad;
+        if (cantidad == 0) {
+            this.cantidad = 0;
+        } else {
+            this.cantidad += cantidad;
+        }
     }
     private String token;
     private int cantidad;
@@ -37,12 +41,4 @@ public enum Token {
 
     }
 
-    public Token value(String temp){
-        Token token =  null;
-        switch(temp){
-            case "":
-                break;
-        }
-        return token;
-    }
 }

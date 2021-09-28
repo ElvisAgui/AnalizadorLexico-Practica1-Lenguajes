@@ -36,7 +36,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="292" max="-2" attributes="0"/>
-                      <EmptySpace pref="10" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -72,20 +72,25 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="AnalizarjButton3" min="-2" pref="178" max="-2" attributes="0"/>
-                              <Component id="reporteJButton" min="-2" pref="178" max="-2" attributes="0"/>
-                              <Component id="AnalizarjButton1" min="-2" pref="178" max="-2" attributes="0"/>
-                              <Component id="SubirArchivojButton" min="-2" pref="178" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
                           <Component id="jTextField1" min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Component id="AnalizarjButton3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="reporteJButton" min="-2" pref="178" max="-2" attributes="0"/>
+                                  <Component id="AnalizarjButton1" min="-2" pref="178" max="-2" attributes="0"/>
+                                  <Component id="SubirArchivojButton" min="-2" pref="178" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="171" max="32767" attributes="0"/>
+                  <EmptySpace pref="159" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -160,7 +165,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tabla estados"/>
+            <Property name="text" type="java.lang.String" value="Movimientos"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AnalizarjButton3ActionPerformed"/>
