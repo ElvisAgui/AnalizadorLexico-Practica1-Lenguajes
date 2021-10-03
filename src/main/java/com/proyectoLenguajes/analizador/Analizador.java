@@ -42,6 +42,7 @@ public class Analizador {
         while (posicion < texto.length()) {
             temporal = texto.charAt(posicion);
             int estadoTemporal = getSiguienteEstado(estadoActual, alfabeto.alfabetoValueOf(temporal));
+            estadoTemporal = evaluarEstado(estadoTemporal);
             reporteErrores.recopilador(temporal, estadoTemporal);
             this.reporte.recopilarReporte(temporal, estadoTemporal, texto.length());
             movimientos(estadoActual, estadoTemporal, temporal);
@@ -143,6 +144,18 @@ public class Analizador {
         }
     }
 
+    private int evaluarEstado(int estadoTempora){
+        int estado = -1;
+        if ((posicion == texto.length()-1) && estadoTempora == 4) {
+            estado = -1;
+        }else if((estadoTempora == 4 && getSiguienteEstado(estadoTempora, texto.charAt(posicion+1)) == -1)){
+            estado = -1;
+        }else{
+            estado = estadoTempora;
+        }
+        return estado;
+    }
+    
     public Errores getReporteErrores() {
         return reporteErrores;
     }
