@@ -127,8 +127,6 @@ public class ReporteConteo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void desplegar() {
-        this.reporte.recuento(TokensjTable);
-        this.reporte.recuentoLexena(LexemasjTable);
     }
 
     public void setReportErrores(Reporte reportErrores) {

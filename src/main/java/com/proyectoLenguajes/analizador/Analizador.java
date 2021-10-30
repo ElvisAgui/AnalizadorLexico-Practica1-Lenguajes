@@ -25,6 +25,7 @@ public class Analizador {
     private Reporte reporte = new Reporte();
 
     public Analizador(JTextArea cadena) {
+        this.reporte.setReporteErrores(reporteErrores);
         this.cadena = cadena;
     }
 
@@ -35,19 +36,18 @@ public class Analizador {
     public void anlaizar() {
         this.lexemas.clear();
         this.movimientos.clear();
-        this.reporte.limpiar();
         texto = cadena.getText();
         this.estadoActual = 0;
         char temporal;
         while (posicion < texto.length()) {
             temporal = texto.charAt(posicion);
-            int estadoTemporal = getSiguienteEstado(estadoActual, alfabeto.alfabetoValueOf(temporal));
-            estadoTemporal = evaluarEstado(estadoTemporal);
+            int estadoTemporal = getSiguienteEstado(estadoActual, alfabeto.alfabetoValueOf(estadoActual, temporal));
             reporteErrores.recopilador(temporal, estadoTemporal);
             this.reporte.recopilarReporte(temporal, estadoTemporal, texto.length());
             movimientos(estadoActual, estadoTemporal, temporal);
             this.estadoActual = estadoTemporal;
-            if (!siguinteToken(temporal) || reiniciar(estadoActual)) {
+            if (!siguinteToken(estadoActual, temporal) || reiniciar(estadoActual)) {
+                System.out.println("se reinicio xd");
                 estadoActual = 0;
             }
             posicion++;
@@ -66,6 +66,7 @@ public class Analizador {
         if (estadoActual == -1 || estadoActual == -2 || estadoActual == -3) {
             reiniciar = true;
         }
+
         return reiniciar;
     }
 
@@ -78,7 +79,7 @@ public class Analizador {
      */
     private int getSiguienteEstado(int estadoActual, int caracter) {
         int resultado = -1;
-        if (caracter >= 0 && caracter <= 5) {
+        if (caracter >= 0 && caracter <= 11) {
             resultado = estados.getMatriz()[estadoActual][caracter];
         } else if (caracter == -2) {
             resultado = -2;
@@ -94,9 +95,11 @@ public class Analizador {
      * @param caracter
      * @return
      */
-    private boolean siguinteToken(char caracter) {
+    private boolean siguinteToken(int estadoActula, char caracter) {
         boolean seguir = true;
-        if (Character.isSpaceChar(caracter) || Character.compare(caracter, this.Salto.charAt(0)) == 0) {
+        if (Character.isSpaceChar(caracter)) {
+            seguir = estadoActula == 4 || estadoActula == 2;
+        } else if (Character.compare(caracter, this.Salto.charAt(0)) == 0) {
             seguir = false;
         }
         return seguir;
@@ -125,10 +128,11 @@ public class Analizador {
         }
 
     }
-    
+
     /**
      * imprime en el jTexArea los movimientos
-     * @param area 
+     *
+     * @param area
      */
     public void listarMovimientos(JTextArea area) {
         int index = 0;
@@ -144,18 +148,6 @@ public class Analizador {
         }
     }
 
-    private int evaluarEstado(int estadoTempora){
-        int estado = -1;
-        if ((posicion == texto.length()-1) && estadoTempora == 4) {
-            estado = -1;
-        }else if((estadoTempora == 4 && getSiguienteEstado(estadoTempora, texto.charAt(posicion+1)) == -1)){
-            estado = -1;
-        }else{
-            estado = estadoTempora;
-        }
-        return estado;
-    }
-    
     public Errores getReporteErrores() {
         return reporteErrores;
     }
