@@ -70,7 +70,11 @@ public class Alfabeto {
     public int alfabetoValueOf(int estadoActual, char caracter) {
         int valor = -1;
         if (CaracterEspecial.contains(caracter)) {
-            valor = 9;
+            if (estadoActual == 3) {
+                valor = 0;
+            } else {
+                valor = 9;
+            }
         } else if (Character.isDigit(caracter)) {
             valor = 1;
         } else if (Character.compare(caracter, diagonal) == 0) {

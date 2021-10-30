@@ -52,6 +52,7 @@ public class Analizador {
             }
             posicion++;
         }
+        this.reporte.pabrasReservadas();
         this.cadena.setText(this.cadena.getText());
     }
 

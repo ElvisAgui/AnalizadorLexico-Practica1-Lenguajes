@@ -52,6 +52,7 @@ public class Reporte {
      * @param lengt
      */
     public void recopilarReporte(char caracter, int estado, int lengt) {
+        System.out.println(estadoAnterio);
         System.out.println(estado);
         switch (estado) {
             case -3:
@@ -151,6 +152,16 @@ public class Reporte {
         this.listaToken.add("Operador");
         this.listaToken.add("Error");
 
+    }
+    
+    public void pabrasReservadas(){
+        for (Tokens token : this.Tokens) {
+            for (PalbraResevada value : PalbraResevada.values()) {
+                if (token.getLexema().equals(value.name())) {
+                    token.setTipoToken(this.listaToken.get(2));
+                }
+            }
+        }
     }
 
     public Errores getReporteErrores() {
