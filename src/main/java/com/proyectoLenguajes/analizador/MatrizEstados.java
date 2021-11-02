@@ -56,7 +56,7 @@ public class MatrizEstados {
         this.matriz[3][1] = 3;
         this.matriz[3][2] = -1;
         this.matriz[3][3] = -1;
-        this.matriz[3][4] = -1;
+        this.matriz[3][4] = -4;
         this.matriz[3][5] = -1;
         this.matriz[3][6] = 3;
         this.matriz[3][7] = 3;
@@ -77,6 +77,7 @@ public class MatrizEstados {
         this.matriz[4][10] = 4;
         this.matriz[4][11] = 4;
         this.matriz[7][1] = 7;
+        this.matriz[7][4] = -4;
 
     }
     

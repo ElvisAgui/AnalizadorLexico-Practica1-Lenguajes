@@ -44,7 +44,9 @@ public class Analizador {
             int estadoTemporal = getSiguienteEstado(estadoActual, alfabeto.alfabetoValueOf(estadoActual, temporal));
             reporteErrores.recopilador(temporal, estadoTemporal);
             this.reporte.recopilarReporte(temporal, estadoTemporal, texto.length());
-            movimientos(estadoActual, estadoTemporal, temporal);
+            if (estadoTemporal == 10) {
+                estadoTemporal = 0;
+            }
             this.estadoActual = estadoTemporal;
             if (!siguinteToken(estadoActual, temporal) || reiniciar(estadoActual)) {
                 System.out.println("se reinicio xd");
@@ -86,6 +88,8 @@ public class Analizador {
             resultado = -2;
         } else if (caracter == -3) {
             resultado = -3;
+        } else if (caracter == -4){
+            resultado = -4;
         }
         return resultado;
     }
@@ -101,6 +105,8 @@ public class Analizador {
         if (Character.isSpaceChar(caracter)) {
             seguir = estadoActula == 4 || estadoActula == 2;
         } else if (Character.compare(caracter, this.Salto.charAt(0)) == 0) {
+            seguir = false;
+        }if (estadoActula == 10 || estadoActula == -4) {
             seguir = false;
         }
         return seguir;

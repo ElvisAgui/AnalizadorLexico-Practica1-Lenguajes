@@ -72,6 +72,26 @@ public class Reporte {
                 this.columna++;
                 this.lexema = "";
                 break;
+            case -4:
+                if (!"".equals(lexema) && !this.esNoAceptcion(caracter, this.estadoAnterio)) {
+                    Tokens tokens = new Tokens(nombreToken(this.estadoAnterio), lexema, fila, columna);
+                    Tokens.add(tokens);
+                    this.columna++;
+                    this.lexema = "";
+                    Tokens tokens1 = new Tokens(nombreToken(10), caracter + "", fila, columna);
+                    Tokens.add(tokens1);
+                    this.columna++;
+                    this.lexema = "";
+                }
+                break;
+            case 10:
+                if (!this.esNoAceptcion(caracter, this.estadoAnterio)) {
+                    Tokens tokens1 = new Tokens(nombreToken(10), caracter + "", fila, columna);
+                    Tokens.add(tokens1);
+                    this.columna++;
+                    this.lexema = "";
+                }
+                break;
             default:
                 this.columna++;
                 this.lexema += "" + caracter;
@@ -153,8 +173,8 @@ public class Reporte {
         this.listaToken.add("Error");
 
     }
-    
-    public void pabrasReservadas(){
+
+    public void pabrasReservadas() {
         for (Tokens token : this.Tokens) {
             for (PalbraResevada value : PalbraResevada.values()) {
                 if (token.getLexema().equals(value.name())) {
