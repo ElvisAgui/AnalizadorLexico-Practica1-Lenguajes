@@ -52,12 +52,10 @@ public class Reporte {
      * @param lengt
      */
     public void recopilarReporte(char caracter, int estado, int lengt) {
-        System.out.println(estadoAnterio);
-        System.out.println(estado);
         switch (estado) {
             case -3:
                 if (!"".equals(lexema) && !this.esNoAceptcion(caracter, this.estadoAnterio)) {
-                    Tokens tokens = new Tokens(nombreToken(this.estadoAnterio), lexema, fila, columna);
+                    Tokens tokens = new Tokens(nombreToken(this.estadoAnterio, lexema), lexema, fila, columna);
                     Tokens.add(tokens);
                 }
                 this.fila++;
@@ -66,7 +64,7 @@ public class Reporte {
                 break;
             case -2:
                 if (!"".equals(lexema) && !this.esNoAceptcion(caracter, this.estadoAnterio)) {
-                    Tokens tokens = new Tokens(nombreToken(this.estadoAnterio), lexema, fila, columna);
+                    Tokens tokens = new Tokens(nombreToken(this.estadoAnterio, lexema), lexema, fila, columna);
                     Tokens.add(tokens);
                 }
                 this.columna++;
@@ -74,11 +72,11 @@ public class Reporte {
                 break;
             case -4:
                 if (!"".equals(lexema) && !this.esNoAceptcion(caracter, this.estadoAnterio)) {
-                    Tokens tokens = new Tokens(nombreToken(this.estadoAnterio), lexema, fila, columna);
+                    Tokens tokens = new Tokens(nombreToken(this.estadoAnterio, lexema), lexema, fila, columna);
                     Tokens.add(tokens);
                     this.columna++;
                     this.lexema = "";
-                    Tokens tokens1 = new Tokens(nombreToken(10), caracter + "", fila, columna);
+                    Tokens tokens1 = new Tokens(nombreToken(10, caracter + ""), caracter + "", fila, columna);
                     Tokens.add(tokens1);
                     this.columna++;
                     this.lexema = "";
@@ -86,7 +84,7 @@ public class Reporte {
                 break;
             case 10:
                 if (!this.esNoAceptcion(caracter, this.estadoAnterio)) {
-                    Tokens tokens1 = new Tokens(nombreToken(10), caracter + "", fila, columna);
+                    Tokens tokens1 = new Tokens(nombreToken(10, caracter + ""), caracter + "", fila, columna);
                     Tokens.add(tokens1);
                     this.columna++;
                     this.lexema = "";
@@ -96,7 +94,7 @@ public class Reporte {
                 this.columna++;
                 this.lexema += "" + caracter;
                 if (this.contador == lengt - 1 && !this.esNoAceptcion(caracter, estado)) {
-                    Tokens tokens = new Tokens(nombreToken(estado), lexema, fila, columna);
+                    Tokens tokens = new Tokens(nombreToken(estado, lexema), lexema, fila, columna);
                     Tokens.add(tokens);
                 }
 
@@ -121,7 +119,7 @@ public class Reporte {
      * @param estado
      * @return
      */
-    private String nombreToken(int estado) {
+    private String nombreToken(int estado, String lexema) {
         String token = "";
         switch (estado) {
             case 2:
@@ -140,13 +138,13 @@ public class Reporte {
                 token = listaToken.get(6);
                 break;
             case 9:
-                token = listaToken.get(7);
+                token = lexema;
                 break;
             case 10:
-                token = listaToken.get(8);
+                token = lexema;
                 break;
             case 11:
-                token = listaToken.get(9);
+                token = lexema;
                 break;
             default:
                 token = listaToken.get(10);
@@ -160,8 +158,8 @@ public class Reporte {
      * nombre de los token a identificar
      */
     private void listarTokens() {
-        this.listaToken.add("Identificador");
-        this.listaToken.add("Entero");
+        this.listaToken.add("id");
+        this.listaToken.add("Numero");
         this.listaToken.add("Reservada");
         this.listaToken.add("Literal");
         this.listaToken.add("Comentario");
@@ -178,7 +176,7 @@ public class Reporte {
         for (Tokens token : this.Tokens) {
             for (PalbraResevada value : PalbraResevada.values()) {
                 if (token.getLexema().equals(value.name())) {
-                    token.setTipoToken(this.listaToken.get(2));
+                    token.setTipoToken(value.name());
                 }
             }
         }
@@ -191,5 +189,15 @@ public class Reporte {
     public void setReporteErrores(Errores reporteErrores) {
         this.reporteErrores = reporteErrores;
     }
+
+    public ArrayList<Tokens> getTokens() {
+        return Tokens;
+    }
+
+    public void setTokens(ArrayList<Tokens> Tokens) {
+        this.Tokens = Tokens;
+    }
+    
+    
 
 }

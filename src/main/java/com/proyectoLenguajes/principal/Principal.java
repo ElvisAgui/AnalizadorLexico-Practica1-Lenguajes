@@ -1,6 +1,6 @@
 package com.proyectoLenguajes.principal;
 
-import com.proyectoLenguajes.interfazG.VentanaPrincipal;
+import com.proyectoLenguajes.interfazG.VentanaPrincipalIDE;
 
 /**
  *
@@ -9,8 +9,10 @@ import com.proyectoLenguajes.interfazG.VentanaPrincipal;
 public class Principal {
 
     public static void main(String[] args) {
-        VentanaPrincipal ventana = new VentanaPrincipal();
-        ventana.setVisible(true);
+
+        VentanaPrincipalIDE ide = new VentanaPrincipalIDE();
+        ide.setVisible(true);
+
     }
 
 }

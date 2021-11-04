@@ -2,6 +2,7 @@ package com.proyectoLenguajes.analizador;
 
 import com.proyectoLenguajes.reportes.Errores;
 import com.proyectoLenguajes.reportes.Reporte;
+import com.proyectoLenguajes.reportes.Tokens;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
 
@@ -49,12 +50,13 @@ public class Analizador {
             }
             this.estadoActual = estadoTemporal;
             if (!siguinteToken(estadoActual, temporal) || reiniciar(estadoActual)) {
-                System.out.println("se reinicio xd");
                 estadoActual = 0;
             }
             posicion++;
         }
         this.reporte.pabrasReservadas();
+        Tokens tokens = new Tokens("FINALIZAR", "FINALIZAR", 00, 00);
+        reporte.getTokens().add(tokens);
         this.cadena.setText(this.cadena.getText());
     }
 
@@ -88,7 +90,7 @@ public class Analizador {
             resultado = -2;
         } else if (caracter == -3) {
             resultado = -3;
-        } else if (caracter == -4){
+        } else if (caracter == -4) {
             resultado = -4;
         }
         return resultado;
@@ -106,7 +108,8 @@ public class Analizador {
             seguir = estadoActula == 4 || estadoActula == 2;
         } else if (Character.compare(caracter, this.Salto.charAt(0)) == 0) {
             seguir = false;
-        }if (estadoActula == 10 || estadoActula == -4) {
+        }
+        if (estadoActula == 10 || estadoActula == -4) {
             seguir = false;
         }
         return seguir;
