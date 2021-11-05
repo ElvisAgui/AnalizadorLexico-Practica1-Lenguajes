@@ -1,6 +1,7 @@
 package com.proyectoLenguajes.analizador.Sintactico;
 
 import java.util.Stack;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -112,6 +113,10 @@ public class Pila {
                         pila.push(Producciones.PRODUCCIONX);
                         pila.push("=");
                         pila.push("id");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "UN ERROR EN LA MATRIX, este error nu lo pude manejar XD");
+                        System.exit(0);
                         break;
                 }
 

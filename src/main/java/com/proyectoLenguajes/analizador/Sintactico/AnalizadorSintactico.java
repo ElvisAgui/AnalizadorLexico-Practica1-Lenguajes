@@ -1,5 +1,6 @@
 package com.proyectoLenguajes.analizador.Sintactico;
 
+import com.proyectoLenguajes.analizador.erroresSintacticos.ErroresSintacticos;
 import com.proyectoLenguajes.reportes.Tokens;
 import java.util.ArrayList;
 
@@ -15,8 +16,7 @@ public class AnalizadorSintactico {
     private AlfabetoTerminal alfabeto = new AlfabetoTerminal();
     private Tokens token;
     private ArrayList<Tokens> Tokens = new ArrayList<>();
-
-    ;
+    private ErroresSintacticos errores = new ErroresSintacticos();
 
     public void analizar(ArrayList<Tokens> Tokens) {
         this.Tokens = Tokens;
@@ -25,21 +25,32 @@ public class AnalizadorSintactico {
             System.out.println("entre a anlizar");
             if (this.token == null) {
                 this.token = this.Tokens.get(index);
-                System.out.println("Asignando nuevo token "+this.token.getTipoToken());
+                System.out.println("Asignando nuevo token " + this.token.getTipoToken());
                 index++;
             }
             while (comprobar(this.pila.getPila().peek())) {
-                System.out.println("valor de pila en producciones "+this.pila.getPila().peek());
+                System.out.println("valor de pila en producciones " + this.pila.getPila().peek());
                 this.produccion = (Producciones) this.pila.getPila().peek();
                 String valorMatriz = this.matriz.getMatriz()[this.alfabeto.getEstado(produccion)][this.alfabeto.getValorTernminal(this.token.getTipoToken())];
-                System.out.println("valor de matriz a apilar "+valorMatriz);
-                this.pila.Apilar(valorMatriz, this.token.getTipoToken());
+                System.out.println("valor de matriz a apilar " + valorMatriz);
+                if (valorMatriz == null) {
+                    String descripError = "El analizador sintactico esperba " + produccion.getEspera();
+                    this.errores.camputrarErrorSintactico(token, descripError);
+                    token = null;
+                    break;
+                } else {
+                    this.pila.Apilar(valorMatriz, this.token.getTipoToken());
+                }
 
             }
-            if (!comprobar(this.pila.getPila().peek())) {
-                System.out.println("valor de pila en terminal "+this.pila.getPila().peek());
+            if (!comprobar(this.pila.getPila().peek()) && this.token != null) {
+                System.out.println("valor de pila en terminal " + this.pila.getPila().peek());
                 if (token.getTipoToken().equalsIgnoreCase((String) this.pila.getPila().peek())) {
                     this.pila.getPila().pop();
+                    this.token = null;
+                } else {
+                    String descripError = "El analizador sintactico esperba un token " + this.pila.getPila().peek();
+                    this.errores.camputrarErrorSintactico(token, descripError);
                     this.token = null;
                 }
             }
@@ -70,4 +81,13 @@ public class AnalizadorSintactico {
         return esEnum;
     }
 
+    public ErroresSintacticos getErrores() {
+        return errores;
+    }
+
+    public void setErrores(ErroresSintacticos errores) {
+        this.errores = errores;
+    }
+
+    
 }

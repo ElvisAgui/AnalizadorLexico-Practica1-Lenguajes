@@ -11,6 +11,7 @@ public class Tokens {
     private String lexema;
     private int fila;
     private int columna;
+    private String descripcion;
 
     public Tokens(String tipoToken, String lexema, int fila, int columna) {
         this.tipoToken = tipoToken;
@@ -51,6 +52,14 @@ public class Tokens {
 
     public void setColumna(int columna) {
         this.columna = columna;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
     
