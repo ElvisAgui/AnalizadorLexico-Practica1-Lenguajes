@@ -53,9 +53,7 @@ public class TablaSimbolos {
 
     private ArrayList<String> operacionParentesis(ArrayList<String> valores) {
         if (valores.contains("(")) {
-            System.out.println("entre con parentesis");
             while (valores.contains("(")) {
-                System.out.println("entre con parentesis en while");
                 int temI = 0;
                 int temF = 0;
                 ArrayList<String> aux = new ArrayList<>();
@@ -71,20 +69,11 @@ public class TablaSimbolos {
                         break;
                     }
                 }
-                System.out.println(temI + "    " + temF);
                 for (int i = temI + 1; i < temF; i++) {
                     aux.add(valores.get(i));
                 }
-                System.out.println("antes de calculos");
-                for (String string : aux) {
-                      System.out.println(string);
-                }
                 aux = operacionLinealMultiplicidad(aux);
                 aux = operacionlinealSuma(aux);
-                for (String string : aux) {
-                    System.out.println("despues de calculos");
-                    System.out.println(string);
-                }
                 valores.set(temI, aux.get(0));
                 valores = this.reasignar(valores, temI, temF);
             }

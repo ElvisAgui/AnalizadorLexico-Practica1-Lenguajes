@@ -17,21 +17,21 @@ public class FuncionEscribir {
         if (produccion.equals(Producciones.ESCRITURA) && token.getTipoToken().equalsIgnoreCase("ESCRIBIR")) {
             recolectando = true;
         }
-        if (recolectando && (token.getTipoToken().equalsIgnoreCase("id") || token.getTipoToken().equalsIgnoreCase("Literal") || token.getTipoToken().equalsIgnoreCase("Numero"))) {
-            switch(token.getTipoToken()){
-                case "id":
-                    RecolectorFunciones.textoSalida += tabla.valorEnSimbolo(token.getLexema());
-                    break;
-                case "Literal":
-                    RecolectorFunciones.textoSalida += token.getLexema().replace("\"", "");
-                    break;  
-                default:
-                    RecolectorFunciones.textoSalida += token.getLexema();
-                    break;
-            }
-            RecolectorFunciones.textoSalida += "\n";
-            recolectando = false;
-        }
+//        if (recolectando && (token.getTipoToken().equalsIgnoreCase("id") || token.getTipoToken().equalsIgnoreCase("Literal") || token.getTipoToken().equalsIgnoreCase("Numero"))) {
+//            switch(token.getTipoToken()){
+//                case "id":
+//                    RecolectorFunciones.textoSalida += tabla.valorEnSimbolo(token.getLexema());
+//                    break;
+//                case "Literal":
+//                    RecolectorFunciones.textoSalida += token.getLexema().replace("\"", "");
+//                    break;  
+//                default:
+//                    RecolectorFunciones.textoSalida += token.getLexema();
+//                    break;
+//            }
+//            RecolectorFunciones.textoSalida += "\n";
+//            recolectando = false;
+//        }
         
       
     }

@@ -60,7 +60,6 @@ public class AnalizadorSintactico {
 
         }
 
-        System.out.println("todo termino xd");
     }
 
     public ArrayList<Tokens> getTokens() {
@@ -95,6 +94,8 @@ public class AnalizadorSintactico {
     public RecolectorFunciones getFunciones() {
         return funciones;
     }
+    
+    
     
     
 

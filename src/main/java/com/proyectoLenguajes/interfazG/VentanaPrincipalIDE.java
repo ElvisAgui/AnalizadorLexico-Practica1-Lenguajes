@@ -7,14 +7,14 @@ package com.proyectoLenguajes.interfazG;
 
 import com.proyectoLenguajes.analizador.Analizador;
 import com.proyectoLenguajes.analizador.Sintactico.AnalizadorSintactico;
-import com.proyectoLenguajes.analizador.funcionesSalida.RecolectorFunciones;
 import com.proyectoLenguajes.archivos.EscritorArchivo;
 import com.proyectoLenguajes.archivos.LectorArchivo;
-import com.proyectoLenguajes.reportes.Tokens;
-import java.io.File;
-import java.io.IOException;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.undo.UndoManager;
 
 /**
  *
@@ -22,15 +22,26 @@ import javax.swing.JOptionPane;
  */
 public class VentanaPrincipalIDE extends javax.swing.JFrame {
 
-    private NumeroLinea numeroLinea;
-    private ReporteError ventanaRpo = new ReporteError();
-    private LectorArchivo lector = new LectorArchivo();
-    private Reportes reporteVentan = new Reportes();
+    private final NumeroLinea numeroLinea;
+    private final ReporteError ventanaRpo = new ReporteError();
+    private final LectorArchivo lector = new LectorArchivo();
+    private final Reportes reporteVentan = new Reportes();
     private Analizador analizador;
     private AnalizadorSintactico sintactico;
+    private final funcionesUI funciones = new funcionesUI();
+     private UndoManager manager;
 
     public VentanaPrincipalIDE() {
         initComponents();
+        this.manager = new UndoManager();
+        AreaTExto1.getDocument().addUndoableEditListener(
+                new UndoableEditListener() {
+            @Override
+            public void undoableEditHappened(UndoableEditEvent e) {
+                manager.addEdit(e.getEdit());
+            }
+        });
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.numeroLinea = new NumeroLinea(AreaTExto1);
         jScrollPane2.setRowHeaderView(numeroLinea);
     }
@@ -54,6 +65,7 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -62,6 +74,10 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -134,7 +150,7 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Droid Naskh Shift Alt", 1, 18)); // NOI18N
 
-        jMenuItem3.setText("Abrir");
+        jMenuItem3.setText("Abrir Archivo");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -142,10 +158,28 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem8.setText("Nuevo Archivo");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+
         jMenuItem4.setText("Guardar Como");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Guardar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -187,6 +221,35 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Opciones");
+        jMenu4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
+        jMenuItem9.setText("Copiar");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem9);
+
+        jMenuItem10.setText("Pegar");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem10);
+
+        jMenuItem11.setText("Cortar");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem11);
+
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,22 +267,8 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        try {
-            JFileChooser fileChosser = new JFileChooser();
-            int seleccion = fileChosser.showOpenDialog(this);
-            if (seleccion == JFileChooser.APPROVE_OPTION) {
-                File fichero = fileChosser.getSelectedFile();
-                try {
-                    this.lector.leerFichero(fichero, AreaTExto1);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Error al leer el archivo");
-                }
-            }
+        this.funciones.cargarArchivo(AreaTExto1);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "completado");
-
-        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -237,11 +286,11 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       this.manager.undo();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        this.manager.redo();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -267,13 +316,39 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
                 EscritorArchivo escritor = new EscritorArchivo();
                 JFileChooser fileChosser = new JFileChooser();
                 if (fileChosser.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
-                    escritor.escritorArchivo(fileChosser.getSelectedFile(), RecolectorFunciones.textoSalida);
+                    escritor.escritorArchivo(fileChosser.getSelectedFile(), sintactico.getFunciones().getRecolector().getDocumento());
+                    JOptionPane.showMessageDialog(null, "Archivo Guardado");
                 }
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "primero debe ralizar el analisis Lexico Gacias!!!");
         }
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        this.funciones.archivoNuevo(AreaTExto1);
+
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        String documento = jTextArea1.getText();        
+        this.funciones.guardarCambiosArchivo(documento);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+         this.funciones.guardarComo(jTextArea1);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        this.AreaTExto1.copy();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+       this.AreaTExto1.paste();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        this.AreaTExto1.cut();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -283,14 +358,19 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
