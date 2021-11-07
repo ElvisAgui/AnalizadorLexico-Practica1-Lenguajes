@@ -11,7 +11,10 @@ public class MatrizProducciones {
     public MatrizProducciones() {
         this.inicilizarProducciones();
     }
-
+    
+    /**
+     * producciones de la matriz
+     */
     private void inicilizarProducciones() {
         this.matriz[0][0] = "ES";
         this.matriz[0][4] = "AS";

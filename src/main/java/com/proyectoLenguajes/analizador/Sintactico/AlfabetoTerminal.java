@@ -5,7 +5,13 @@ package com.proyectoLenguajes.analizador.Sintactico;
  * @author elvis_agui
  */
 public class AlfabetoTerminal {
-
+    
+    
+    /**
+     * 
+     * @param produci
+     * @return la posicion en fila de la produccion en la matriz
+     */
     public int getEstado(Producciones produci) {
         int valor = 0;
         switch (produci) {
@@ -52,7 +58,12 @@ public class AlfabetoTerminal {
 
         return valor;
     }
-
+    
+    /**
+     * 
+     * @param tipoToken
+     * @return posision del terminal en la matriz
+     */
     public int getValorTernminal(String tipoToken) {
         int valor = 0;
         switch (tipoToken) {

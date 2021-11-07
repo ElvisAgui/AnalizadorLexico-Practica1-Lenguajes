@@ -20,8 +20,12 @@ public class AnalizadorSintactico {
     private ErroresSintacticos errores = new ErroresSintacticos();
     private RecolectorFunciones funciones = new RecolectorFunciones();
 
+    /**
+     *logica del analisador sintactico con los tokens resividos del analisados lexico 
+     * @param Tokens
+     */
     public void analizar(ArrayList<Tokens> Tokens) {
-        this.Tokens = Tokens;
+        this.Tokens = this.limpiarTokens(Tokens);
         int index = 0;
         while (!this.pila.getPila().empty() && index < this.Tokens.size()) {
 //            System.out.println("entre a anlizar");
@@ -62,6 +66,22 @@ public class AnalizadorSintactico {
 
     }
 
+    /**
+     * no toma en cuenta los comentarios y los caracteres especiales
+     *
+     * @param tokens
+     * @return
+     */
+    private ArrayList<Tokens> limpiarTokens(ArrayList<Tokens> tokens) {
+        ArrayList<Tokens> tokensLimpios = new ArrayList<>();
+        for (Tokens token1 : tokens) {
+            if (!token1.getTipoToken().equalsIgnoreCase("Comentario") && !token1.getTipoToken().equalsIgnoreCase("Especial")) {
+                tokensLimpios.add(token1);
+            }
+        }
+        return tokensLimpios;
+    }
+
     public ArrayList<Tokens> getTokens() {
         return Tokens;
     }
@@ -70,6 +90,13 @@ public class AnalizadorSintactico {
         this.Tokens = Tokens;
     }
 
+    /**
+     * *
+     * comprueba si el objeto ob es un enum
+     *
+     * @param ob
+     * @return
+     */
     private boolean comprobar(Object ob) {
         boolean esEnum = false;
         Producciones[] pro = Producciones.values();
@@ -94,10 +121,5 @@ public class AnalizadorSintactico {
     public RecolectorFunciones getFunciones() {
         return funciones;
     }
-    
-    
-    
-    
 
-    
 }
