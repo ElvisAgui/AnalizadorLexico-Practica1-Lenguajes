@@ -11,7 +11,6 @@ import javax.swing.JTextArea;
 public class ErroresSintacticos {
 
     private final ArrayList<Tokens> Tokens = new ArrayList<>();
-
     
     public void camputrarErrorSintactico(Tokens token, String descipcion){
         token.setDescripcion(descipcion);
@@ -27,5 +26,12 @@ public class ErroresSintacticos {
             area.append("DESCRIPCION "+ Token.getDescripcion()+"\n\n");
         }
     }
+
+    public boolean hayError() {
+        return !this.Tokens.isEmpty();
+    }
+
+    
+    
     
 }

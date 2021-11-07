@@ -7,6 +7,8 @@ package com.proyectoLenguajes.interfazG;
 
 import com.proyectoLenguajes.analizador.Analizador;
 import com.proyectoLenguajes.analizador.Sintactico.AnalizadorSintactico;
+import com.proyectoLenguajes.analizador.funcionesSalida.RecolectorFunciones;
+import com.proyectoLenguajes.archivos.EscritorArchivo;
 import com.proyectoLenguajes.archivos.LectorArchivo;
 import com.proyectoLenguajes.reportes.Tokens;
 import java.io.File;
@@ -261,6 +263,15 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
         if (this.sintactico != null) {
             this.sintactico.analizar(this.analizador.getReporte().getTokens());
             this.sintactico.getErrores().enlistarErrores(jTextArea1);
+            if (!sintactico.getErrores().hayError()) {
+                EscritorArchivo escritor = new EscritorArchivo();
+                JFileChooser fileChosser = new JFileChooser();
+                if (fileChosser.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+                    escritor.escritorArchivo(fileChosser.getSelectedFile(), RecolectorFunciones.textoSalida);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "primero debe ralizar el analisis Lexico Gacias!!!");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
