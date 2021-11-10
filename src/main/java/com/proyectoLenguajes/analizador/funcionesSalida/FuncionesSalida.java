@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author elvis_agui
  */
-public class RecolectorSintactico {
+public class FuncionesSalida {
 
     private String tokenGuia;
     private String cadea;
@@ -107,20 +107,14 @@ public class RecolectorSintactico {
             error = true;
         }
 
-//        if (tipoToken.equals("FINALIZAR")) {
-//            if (error == false) {
-//                System.out.println("ENTRO  A FINALIZAR");
-//                archivoSalida();
-//            }
-//        }
+
     }
 
     public void impirmirCiclo() {
         for (int i = 0; i < ciclo; i++) {
 
             for (int j = 0; j < cadenas.size(); j++) {
-                documento += "\n" + cadenas.get(j);
-                System.out.println("REPETIR: " + cadenas.get(j));
+                documento +=  cadenas.get(j)+"\n";
 
             }
 

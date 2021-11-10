@@ -1,4 +1,3 @@
-
 package com.proyectoLenguajes.interfazG;
 
 import com.proyectoLenguajes.analizador.Analizador;
@@ -24,9 +23,9 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     private final Reportes reporteVentan = new Reportes();
     private Analizador analizador;
     private AnalizadorSintactico sintactico;
-    private final funcionesUI funciones = new funcionesUI();
-     private UndoManager manager;
-     private VentanaInfo info;
+    private final funcionesInterfaz funciones = new funcionesInterfaz();
+    private UndoManager manager;
+    private VentanaInfo info;
 
     public VentanaPrincipalIDE() {
         initComponents();
@@ -317,7 +316,7 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.manager.undo();
+        this.manager.undo();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -361,12 +360,12 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        String documento = jTextArea1.getText();        
+        String documento = jTextArea1.getText();
         this.funciones.guardarCambiosArchivo(documento);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-         this.funciones.guardarComo(jTextArea1);
+        this.funciones.guardarComo(jTextArea1);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -374,7 +373,7 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-       this.AreaTExto1.paste();
+        this.AreaTExto1.paste();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -382,15 +381,15 @@ public class VentanaPrincipalIDE extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-       this.AreaTExto1.copy();
+        this.AreaTExto1.copy();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-         this.AreaTExto1.paste();
+        this.AreaTExto1.paste();
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-         this.AreaTExto1.cut();
+        this.AreaTExto1.cut();
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed

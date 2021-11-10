@@ -61,7 +61,6 @@ public class TablaSimbolos {
                     if (valores.get(i).equalsIgnoreCase("(")) {
                         temI = i;
                     }
-                    System.out.println(valores.get(i));
                 }
                 for (int i = temI; i < valores.size(); i++) {
                     if (valores.get(i).equalsIgnoreCase(")")) {

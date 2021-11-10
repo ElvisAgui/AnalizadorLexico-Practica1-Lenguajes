@@ -11,7 +11,7 @@ import com.proyectoLenguajes.reportes.Tokens;
 public class RecolectorFunciones {
 
     private final TablaSimbolos tabla = new TablaSimbolos();
-    private final RecolectorSintactico recolector = new RecolectorSintactico();
+    private final FuncionesSalida recolector = new FuncionesSalida();
     
    
 
@@ -25,7 +25,7 @@ public class RecolectorFunciones {
         return tabla;
     }
 
-    public RecolectorSintactico getRecolector() {
+    public FuncionesSalida getRecolector() {
         return recolector;
     }
     
